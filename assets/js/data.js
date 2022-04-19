@@ -1,5 +1,5 @@
-let DATA={};
-export const BASE_URL=""
+export let DATA={};
+export let BASE_URL=""
 
 export async function fetchColor() {
     const response = await fetch(`${BASE_URL}/color`);
@@ -21,14 +21,11 @@ export async function fetchWallpaper() {
 
 export async function initData (){
 	const params = new URLSearchParams(window.location.search);
-	const BASE_URL = params.get("api");
-	console.log(BASE_URL)
+	BASE_URL = params.get("api");
+
     const response = await fetch(`${BASE_URL}/all`);
 	const result = await response.json()
-	DATA = result
-	console.log(DATA)
+	DATA={...result}
 }
-
-export default DATA
 
 

@@ -1,4 +1,4 @@
-import DATA,{fetchColor,BASE_URL} from "./data.js"
+import {DATA,fetchColor,BASE_URL} from "./data.js"
 import * as Color from "./Color.js"
 
 const section = document.querySelector("section#theme")

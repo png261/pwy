@@ -1,4 +1,4 @@
-import DATA,{fetchColor, BASE_URL} from "./data.js"
+import {DATA,fetchColor, BASE_URL} from "./data.js"
 
 const container = document.querySelector("section#color")
 const color_input = container.querySelectorAll('input[type="color"]')

@@ -1,4 +1,4 @@
-import DATA,{fetchWallpaper, BASE_URL} from "./data.js"
+import {DATA,fetchWallpaper, BASE_URL} from "./data.js"
 
 const container = document.querySelector("section#wallpaper")
 const gallery = container.querySelector(".wallpaper__gallery")

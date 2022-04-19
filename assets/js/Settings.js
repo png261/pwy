@@ -1,4 +1,4 @@
-import DATA from "./data.js"
+import { DATA } from "./data.js"
 const section = document.querySelector("section#settings")
 const section_inner = section.querySelector(".settings__inner")
 
