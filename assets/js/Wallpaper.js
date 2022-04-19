@@ -4,15 +4,15 @@ const container = document.querySelector("section#wallpaper")
 const gallery = container.querySelector(".wallpaper__gallery")
 const input_folder = container.querySelector('.wallpaper__upload input[type="file"]')
 
-export async function change(el, wallId) {
+export async function change(el, id) {
     gallery.querySelectorAll(".wallpaper__picture.active").forEach(pic => { pic.classList.remove("active") });
 
-    await fetch(`wallpaper`, {
-        method : 'POST',
+    await fetch(`${BASE_URL}/wallpaper`, {
+        method : 'PUT',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify(wallId)
+        body : JSON.stringify(id)
     });
-	DATA.wallpaper.current = wallId
+	DATA.wallpaper.current = id
 
     el.classList.add("active");
 }
@@ -22,14 +22,14 @@ export async function upload([...imgs]) {
 	const formData = new FormData();
 	imgs.map(img => formData.append("images", img))
 
-	const respone = await fetch(`${BASE_URL}/upload_wallpaper`, {
+	const respone = await fetch(`${BASE_URL}/wallpaper`, {
         method : 'POST',
         body : formData 
     });
 	const {success, newUrl} = await respone.json()
 
 	if(success){
-		gallery.innerHTML += newUrl.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${url}')" class="wallpaper__picture" style="background-image:url(/static/wallpapers/${url})"> </div>`, "")
+		gallery.innerHTML += newUrl.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${BASE_URL}/${url}')" class="wallpaper__picture" style="background-image:url(/static/wallpapers/${url})"> </div>`, "")
 	}
 }
 

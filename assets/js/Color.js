@@ -8,12 +8,13 @@ const wallpaper_btn = document.querySelector("button#color__wallpaper")
 export async function update (colors) {
     if (!DATA.options.update_on_change) return;
 
-	console.log(colors)
 	DATA.color = {...DATA.color,...colors}
+	let data = Object.values(DATA.color)
+
     const response = await fetch(`${BASE_URL}/color`, {
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify(DATA.color)
+        body : JSON.stringify(data)
     });
 }
 
