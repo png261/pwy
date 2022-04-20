@@ -1,4 +1,4 @@
-import {DATA,fetchColor,BASE_URL} from "./data.js"
+import {THEME,OPTIONS,loadColor,BASE_URL} from "./data.js"
 import * as Color from "./Color.js"
 
 const section = document.querySelector("section#theme")
@@ -11,16 +11,16 @@ export async function change(name){
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify({
 			name,
-			dark:DATA.theme.dark
+			dark:OPTIONS.theme_dark
 		})
     });
-	await fetchColor()
+	await loadColor()
 	await Color.render()
 }
 
 export async function render(){
-	const dark = DATA.theme.dark ? "dark" : "light"
-	theme_select.innerHTML = DATA.theme.list[dark].reduce((html,theme) => html +=`<option>${theme}</option>`,"") 
+	const dark = OPTIONS.theme_dark ? "dark" : "light"
+	theme_select.innerHTML = THEME[dark].reduce((html,theme) => html +=`<option>${theme}</option>`,"") 
 }
 
 export async function events(){
@@ -30,7 +30,7 @@ export async function events(){
 
     theme_option.forEach(option => {
 		option.addEventListener("change",function (){
-			DATA.theme.dark = this.checked
+			OPTION.theme_dark= this.checked
 			render()
 		})
 	});

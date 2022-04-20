@@ -1,4 +1,4 @@
-import {DATA,fetchColor, BASE_URL} from "./data.js"
+import {COLOR,WALLPAPER,loadColor, BASE_URL} from "./data.js"
 
 const container = document.querySelector("section#color")
 const color_input = container.querySelectorAll('input[type="color"]')
@@ -6,20 +6,17 @@ const reset_btn = document.querySelector("button#reset")
 const wallpaper_btn = document.querySelector("button#color__wallpaper")
 
 export async function update (colors) {
-    if (!DATA.options.update_on_change) return;
-
-	DATA.color = {...DATA.color,...colors}
-	let data = Object.values(DATA.color)
+	COLOR = {...COLOR,...colors}
 
     const response = await fetch(`${BASE_URL}/color`, {
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify(data)
+        body : JSON.stringify(Object.values(COLOR))
     });
 }
 
 export async function render () {
-    Object.entries(DATA.color).forEach(([colorName,colorValue]) => {
+    Object.entries(COLOR).forEach(([colorName,colorValue]) => {
         const colorInput = container.querySelector(`input[name="${colorName}"]`)
         colorInput.value = colorValue
     });
@@ -27,15 +24,15 @@ export async function render () {
 
 async function reset() {
 	await fetch("reset")
-	await fetchColor()
+	await loadColor()
     render()
 }
 
 export async function getWallpaper (){
-    const respone = await fetch(`color/wallpaper/${DATA.wallpaper.current}`)
-	const data = await respone.json()
-	DATA.color = data.colors
-	update(DATA.color)
+    const respone = await fetch(`color/wallpaper/${WALLPAPER.current}`)
+	const pywal = await respone.json()
+	COLOR = pywal.colors
+	update(COLOR)
 	render()
 }
 

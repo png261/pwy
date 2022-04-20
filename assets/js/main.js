@@ -1,4 +1,4 @@
-import {DATA, initData, BASE_URL } from "./data.js"
+import {initData} from "./data.js"
 
 import * as Settings from "./Settings.js"
 import * as Color from "./Color.js"
@@ -20,7 +20,6 @@ function events(){
 
 async function app() {
 	await initData()
-	console.log(DATA)
 	await render()
 	await events()
 }

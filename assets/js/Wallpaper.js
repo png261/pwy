@@ -1,4 +1,4 @@
-import {DATA,fetchWallpaper, BASE_URL} from "./data.js"
+import {WALLPAPER, BASE_URL} from "./data.js"
 
 const container = document.querySelector("section#wallpaper")
 const gallery = container.querySelector(".wallpaper__gallery")
@@ -12,7 +12,7 @@ export async function change(el, id) {
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify(id)
     });
-	DATA.wallpaper.current = id
+	WALLPAPER.current = id
 
     el.classList.add("active");
 }
@@ -29,7 +29,7 @@ export async function upload([...imgs]) {
 	const {success, newUrl} = await respone.json()
 
 	if(success){
-		gallery.innerHTML += newUrl.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${BASE_URL}/${url}')" class="wallpaper__picture" style="background-image:url(/static/wallpapers/${url})"> </div>`, "")
+		gallery.innerHTML += newUrl.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${url}')" class="wallpaper__picture" style="background-image:url(${BASE_URL}/static/wallpapers/${url})"> </div>`, "")
 	}
 }
 
@@ -40,5 +40,5 @@ export async function events() {
 }
 
 export async function render() {
-    gallery.innerHTML = DATA.wallpaper.list.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${url}')" class="wallpaper__picture" style="background-image:url(${BASE_URL}/static/wallpapers/${url})"> </div>`, "")
+    gallery.innerHTML = WALLPAPER.list.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${url}')" class="wallpaper__picture" style="background-image:url(${BASE_URL}/static/wallpapers/${url})"> </div>`, "")
 }

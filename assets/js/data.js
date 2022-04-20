@@ -1,31 +1,36 @@
-export let DATA={};
+export let COLOR={};
+export let THEME={};
+export let WALLPAPER={};
+export let OPTIONS={
+	theme_dark:true
+};
 export let BASE_URL=""
 
-export async function fetchColor() {
+export async function loadColor() {
     const response = await fetch(`${BASE_URL}/color`);
 	const result = await response.json()
-	DATA.color = result.colors
+	COLOR = result
 }
 
-export async function fetchTheme() {
+export async function loadTheme() {
     const response = await fetch(`${BASE_URL}/theme`);
 	const result = await response.json()
-	DATA.theme.list = result
+	THEME = result
 }
 
-export async function fetchWallpaper() {
+export async function loadWall() {
     const response = await fetch(`${BASE_URL}/wallpaper`);
 	const result = await response.json()
-	DATA.wallpaper.list = result
+	WALLPAPER = result
 }
 
 export async function initData (){
 	const params = new URLSearchParams(window.location.search);
 	BASE_URL = params.get("api");
 
-    const response = await fetch(`${BASE_URL}/all`);
-	const result = await response.json()
-	DATA={...result}
+	await loadColor()
+	await loadTheme()
+	await loadWall()
 }
 
 
