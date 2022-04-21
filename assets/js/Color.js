@@ -5,11 +5,9 @@ const color_input = container.querySelectorAll('input[type="color"]')
 const reset_btn = document.querySelector("button#reset")
 const wallpaper_btn = document.querySelector("button#color__wallpaper")
 
-export async function update (colors) {
-	COLOR = {...COLOR,...colors}
-
+export async function update () {
     const response = await fetch(`${BASE_URL}/color`, {
-        method : 'POST',
+        method : 'PUT',
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify(Object.values(COLOR))
     });
@@ -32,15 +30,15 @@ export async function getWallpaper (){
     const respone = await fetch(`color/wallpaper/${WALLPAPER.current}`)
 	const pywal = await respone.json()
 	COLOR = pywal.colors
-	update(COLOR)
+	update()
 	render()
 }
 
 export function events () {
     color_input.forEach( inputEl => {
 		inputEl.addEventListener('input', function() {
-			const {name,value} = this
-			update({[name]:value})
+			COLOR[this.name] = this.value
+			update()
 		})
 	});
     reset_btn.addEventListener('click', reset)
