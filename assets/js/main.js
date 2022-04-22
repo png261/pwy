@@ -23,9 +23,9 @@ function events(){
 }
 
 async function run() {
-	await initData()
+	const hasData = await initData();
+	if(!hasData) return
 	await render()
 	await events()
 }
 run()
-

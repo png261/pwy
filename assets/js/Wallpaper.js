@@ -7,11 +7,7 @@ const input_folder = container.querySelector('.wallpaper__upload input[type="fil
 export async function change(el, id) {
     gallery.querySelectorAll(".wallpaper__picture.active").forEach(pic => { pic.classList.remove("active") });
 
-    await fetch(`${BASE_URL}/wallpaper`, {
-        method : 'PUT',
-        headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify(id)
-    });
+    await fetch(`${BASE_URL}/wallpaper/${id}`, { method : 'PUT' });
 	WALLPAPER.current = id
 
     el.classList.add("active");

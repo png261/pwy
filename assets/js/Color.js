@@ -6,10 +6,10 @@ const reset_btn = document.querySelector("button#reset")
 const wallpaper_btn = document.querySelector("button#color__wallpaper")
 
 export async function update () {
-    const response = await fetch(`${BASE_URL}/color`, {
+    await fetch(`${BASE_URL}/color`, {
         method : 'PUT',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify(Object.values(COLOR))
+        body : JSON.stringify(COLOR)
     });
 }
 
