@@ -26,18 +26,19 @@ export async function loadWall() {
     const response = await fetch(`${BASE_URL}/wallpaper`);
 	WALLPAPER = await response.json()
 }
+export function clearParam(){
+	const newUrl = window.location.href.split("?")[0]
+	window.history.pushState({}, "", newUrl );
+} 
 
 export async function initData (){
 	const params = new URLSearchParams(window.location.search);
 	BASE_URL = params.get("api") || localStorage.getItem("BASE_URL",BASE_URL);
-	console.log(BASE_URL)
 	localStorage.setItem("BASE_URL",BASE_URL);
-	window.history.replaceState({}, document.title, "/pwy");
+	clearParam()
 
 	await loadSys()
 	await loadColor()
 	await loadTheme()
 	await loadWall()
 }
-
-

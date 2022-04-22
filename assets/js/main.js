@@ -1,5 +1,6 @@
 import {initData} from "./data.js"
 
+import * as Connect from "./Connect.js"
 import * as Sys from "./Sys.js"
 import * as Settings from "./Settings.js"
 import * as Color from "./Color.js"
@@ -7,24 +8,24 @@ import * as Theme from "./Theme.js"
 import * as Wallpaper from "./Wallpaper.js"
 
 async function render(){
-	await Sys.render()
-	await Wallpaper.render()
-	await Color.render()
-	await Theme.render()
+	Sys.render()
+	Wallpaper.render()
+	Color.render()
+	Theme.render()
 }
 
 function events(){
+	Connect.events()
 	Settings.events()
 	Wallpaper.events()
 	Theme.events()
 	Color.events()
 }
 
-async function app() {
+async function run() {
 	await initData()
 	await render()
 	await events()
 }
-
-app()
+run()
 
