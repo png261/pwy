@@ -15,18 +15,15 @@ export async function change(el, id) {
 window.changeWallpaper = change
 
 export async function upload([...imgs]) {
-	const formData = new FormData();
-	imgs.map(img => formData.append("images", img))
+	let data = new FormData()
+	imgs.map(file => data.append("files", file))
 
 	const respone = await fetch(`${BASE_URL}/wallpaper`, {
         method : 'POST',
-        body : formData 
+        body : data
     });
-	const {success, newUrl} = await respone.json()
-
-	if(success){
-		gallery.innerHTML += newUrl.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${url}')" class="wallpaper__picture" style="background-image:url(${BASE_URL}/static/wallpapers/${url})"> </div>`, "")
-	}
+	const {newUrl} = await respone.json()
+	gallery.innerHTML += newUrl.reduce((html, url) => html += `<div onclick="changeWallpaper(this,'${url}')" class="wallpaper__picture" style="background-image:url(${BASE_URL}/static/wallpapers/${url})"> </div>`, "")
 }
 
 export async function events() {
