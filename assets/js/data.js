@@ -47,6 +47,9 @@ async function handleApi(){
 	localStorage.setItem("BASE_URL",BASE_URL);
 	return true
 }
+export function updateColor(colors){
+	COLOR = {...COLOR,...colors}
+}
 
 export async function initData (){
 	const hasData = await handleApi()

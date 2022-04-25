@@ -1,4 +1,4 @@
-import {COLOR,WALLPAPER,loadColor, BASE_URL} from "./data.js"
+import {COLOR,WALLPAPER,loadColor, BASE_URL,updateColor} from "./data.js"
 
 const container = document.querySelector("section#color")
 const color_input = container.querySelectorAll('input[type="color"]')
@@ -27,10 +27,9 @@ async function reset() {
 }
 
 export async function getWallpaper (){
-    const respone = await fetch(`color/wallpaper/${WALLPAPER.current}`)
-	const pywal = await respone.json()
-	COLOR = pywal.colors
-	update()
+    const respone = await fetch(`${BASE_URL}/wallpaper/${WALLPAPER.current}/color`)
+	const colors = await respone.json()
+	updateColor(colors)
 	render()
 }
 

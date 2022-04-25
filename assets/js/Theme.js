@@ -1,20 +1,21 @@
-import {THEME,OPTIONS,loadColor,BASE_URL} from "./data.js"
+import {THEME, OPTIONS, loadColor, BASE_URL, updateColor} from "./data.js"
 import * as Color from "./Color.js"
 
 const section = document.querySelector("section#theme")
 const select = section.querySelector('.theme__select select[name="theme_name"]')
 const options = section.querySelectorAll('.theme__option input[name="dark"]')
 
-async function change(name){
-    await fetch(`${BASE_URL}/theme`, {
+async function change(theme){
+    const response = await fetch(`${BASE_URL}/theme`, {
         method : 'PUT',
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify({
-			name,
+			theme,
 			isDark:THEME.isDark
 		})
     });
-	await loadColor()
+	const colors = await response.json()
+	updateColor(colors)
 	await Color.render()
 }
 
