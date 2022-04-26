@@ -8,6 +8,9 @@ export async function change(el, id) {
     gallery.querySelectorAll(".wallpaper__picture.active").forEach(pic => { pic.classList.remove("active") });
 	WALLPAPER.current = id
     el.classList.add("active");
+    await fetch(`${BASE_URL}/wallpaper/${id}`, {
+        method : 'PUT',
+    });
 }
 window.changeWallpaper = change
 

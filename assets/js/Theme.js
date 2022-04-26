@@ -15,6 +15,11 @@ async function change(theme){
 		})
     });
 	const colors = await response.json()
+    await fetch(`${BASE_URL}/color`, {
+        method : 'PUT',
+        headers : {'Content-Type' : 'application/json'},
+        body : JSON.stringify(colors)
+    });
 	updateColor(colors)
 	await Color.render()
 }
