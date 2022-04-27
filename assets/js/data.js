@@ -1,30 +1,25 @@
+import API from "./Api.js"
+
 export let COLOR={};
 export let THEME={};
 export let WALLPAPER={};
 export let SYS={};
-export let OPTIONS={
-	theme_dark:true
-};
 export let BASE_URL=""
 
 export async function loadSys() {
-    const response = await fetch(`${BASE_URL}/sys`);
-	SYS = await response.json()
+	SYS = await API.system_get()
 }
 
 export async function loadColor() {
-    const response = await fetch(`${BASE_URL}/color`);
-	COLOR = await response.json()
+	COLOR = await API.color_get()
 }
 
 export async function loadTheme() {
-    const response = await fetch(`${BASE_URL}/theme`);
-	THEME = await response.json()
+	THEME = await API.theme_get()
 }
 
 export async function loadWall() {
-    const response = await fetch(`${BASE_URL}/wallpaper`);
-	WALLPAPER = await response.json()
+	WALLPAPER = await API.wallpaper_get()
 }
 
 export function clearParam(){
@@ -46,9 +41,6 @@ async function handleApi(){
 	if(! isApiValid) return false 
 	localStorage.setItem("BASE_URL",BASE_URL);
 	return true
-}
-export function updateColor(colors){
-	COLOR = {...COLOR,...colors}
 }
 
 export async function initData (){
