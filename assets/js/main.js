@@ -1,11 +1,11 @@
-import {initData} from "./data.js"
+import { initData } from './data.js'
 
-import * as Connect from "./Connect.js"
-import * as Sys from "./Sys.js"
-import * as Settings from "./Settings.js"
-import * as Color from "./Color.js"
-import * as Theme from "./Theme.js"
-import * as Wallpaper from "./Wallpaper.js"
+import * as Connect from './Connect.js'
+import * as Sys from './Sys.js'
+import * as Settings from './Settings.js'
+import * as Color from './Color.js'
+import * as Theme from './Theme.js'
+import * as Wallpaper from './Wallpaper.js'
 
 async function render(){
 	Sys.render()

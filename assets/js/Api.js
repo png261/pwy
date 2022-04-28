@@ -1,4 +1,5 @@
-import {BASE_URL, COLOR, THEME, WALLPAPER} from "./data.js"
+import { BASE_URL, COLOR, THEME, WALLPAPER } from './data.js'
+
 // COLOR
 async function color_get(){
     const response = await fetch(`${BASE_URL}/color`)
@@ -21,10 +22,11 @@ async function theme_get(){
 }
 
 async function theme_put(theme, dark = true){
+	const data = JSON.stringify({ theme, dark }) 
     const response = await fetch(`${BASE_URL}/theme`, {
         method : 'PUT',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({ theme, dark })
+        body : data
     });
 	return await response.json()
 }
@@ -75,12 +77,15 @@ async function system_get(){
 export default {
 	color_get,
 	color_put,
+
 	theme_get,
 	theme_put,
+
 	wallpaper_get,
 	wallpaper_put,
 	wallpaper_get_color,
 	wallpaper_upload,
 	wallpaper_delete,
+
 	system_get
 }

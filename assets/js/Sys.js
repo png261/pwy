@@ -1,6 +1,7 @@
-const section = document.querySelector("section#sys")
-const title = section.querySelector("h1")
-import {SYS} from "./data.js"
+import { SYS } from './data.js'
+
+const section = document.querySelector('section#sys')
+const title = section.querySelector('h1')
 
 export function render(){
 	const {os,name} = SYS
