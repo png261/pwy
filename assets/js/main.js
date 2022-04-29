@@ -6,6 +6,7 @@ import * as Settings from './Settings.js'
 import * as Color from './Color.js'
 import * as Theme from './Theme.js'
 import * as Wallpaper from './Wallpaper.js'
+import * as Actions from './Actions.js'
 
 async function render(){
 	Sys.render()
@@ -20,6 +21,7 @@ function events(){
 	Wallpaper.events()
 	Theme.events()
 	Color.events()
+	Actions.events()
 }
 
 async function run() {

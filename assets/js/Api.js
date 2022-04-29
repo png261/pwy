@@ -6,6 +6,13 @@ async function color_get(){
 	return await response.json()
 }
 
+// COLOR
+async function color_load(){
+    const response = await fetch(`${BASE_URL}/color/load`)
+	return await response.json()
+}
+
+
 async function color_put(colors = COLOR){
     const response = await fetch(`${BASE_URL}/color`, {
         method : 'PUT',
@@ -34,6 +41,11 @@ async function theme_put(theme, dark = true){
 // WALLPAPER
 async function wallpaper_get(){
     const response = await fetch(`${BASE_URL}/wallpaper`);
+	return await response.json()
+}
+
+async function wallpaper_load(){
+    const response = await fetch(`${BASE_URL}/wallpaper/load`)
 	return await response.json()
 }
 
@@ -74,18 +86,26 @@ async function system_get(){
 	return await response.json()
 }
 
+async function reset(){
+	const response = await fetch(`${BASE_URL}/reset`)
+	return await response.json()
+}
+
 export default {
 	color_get,
 	color_put,
+	color_load,
 
 	theme_get,
 	theme_put,
 
 	wallpaper_get,
+	wallpaper_load,
 	wallpaper_put,
 	wallpaper_get_color,
 	wallpaper_upload,
 	wallpaper_delete,
 
-	system_get
+	system_get,
+	reset
 }
