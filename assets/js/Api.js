@@ -23,18 +23,14 @@ async function color_put(colors = COLOR){
 }
 
 // THEME
-async function theme_get(){
+async function themes_get(){
     const response = await fetch(`${BASE_URL}/theme`);
 	return await response.json()
 }
 
-async function theme_put(theme, dark = true){
+async function theme_get(theme, dark = true){
 	const data = JSON.stringify({ theme, dark }) 
-    const response = await fetch(`${BASE_URL}/theme`, {
-        method : 'PUT',
-        headers : {'Content-Type' : 'application/json'},
-        body : data
-    });
+    const response = await fetch(`${BASE_URL}/theme/${theme}/?dark=${dark}`);
 	return await response.json()
 }
 
@@ -49,7 +45,7 @@ async function wallpaper_load(){
 	return await response.json()
 }
 
-async function wallpaper_put(id){
+async function wallpaper_put(id = WALLPAPER.current){
     const response = await fetch(`${BASE_URL}/wallpaper/${id}`, {
         method : 'PUT',
     });
@@ -96,8 +92,8 @@ export default {
 	color_put,
 	color_load,
 
+	themes_get,
 	theme_get,
-	theme_put,
 
 	wallpaper_get,
 	wallpaper_load,

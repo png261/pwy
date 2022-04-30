@@ -1,12 +1,12 @@
 import API from './Api.js'
 
-export let COLOR = {};
-export let THEME = {};
-export let WALLPAPER = {};
-export let SYS = {};
-export let BASE_URL = ' '
+let COLOR = {};
+let THEME = {};
+let WALLPAPER = {};
+let SYS = {};
+let BASE_URL = ' '
 
-export function clearParam(){
+function clearParam(){
 	const newUrl = window.location.href.split('?')[0]
 	window.history.pushState({}, '', newUrl );
 } 
@@ -16,6 +16,14 @@ async function apiCheck(){
 	const result = await response
 	return result.ok
 }
+
+function updateColor(data) {
+	COLOR = {...COLOR,...data}
+} 
+
+function updateWall(data) {
+	WALLPAPER = {...WALLPAPER,...data}
+} 
 
 async function handleApi(){
 	const params = new URLSearchParams(window.location.search);
@@ -27,13 +35,26 @@ async function handleApi(){
 	return true
 }
 
-export async function initData (){
+async function initData (){
 	const hasData = await handleApi()
 	if(!hasData) return false
 
 	WALLPAPER = await API.wallpaper_get()
-	THEME = await API.theme_get()
+	THEME = await API.themes_get()
 	SYS = await API.system_get()
 	COLOR = await API.color_get()
 	return true
+}
+
+export {
+	BASE_URL,
+
+	COLOR,
+	THEME,
+	WALLPAPER,
+	SYS,
+
+	updateColor,
+	updateWall,
+	initData
 }

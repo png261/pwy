@@ -8,4 +8,6 @@ export function events(){
 	})
 }
 
-
+export default {
+	events
+}

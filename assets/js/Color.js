@@ -1,28 +1,29 @@
-import { COLOR, WALLPAPER } from './data.js'
+import { COLOR, WALLPAPER, updateColor } from './data.js'
 import API from './Api.js'
 
 const section = document.querySelector('section#color')
 const color_input = section.querySelectorAll('input[type="color"]')
 const wallpaper_btn = section.querySelector('#color__wallpaper')
 
-export function render(colors = COLOR) {
-    Object.entries(colors).forEach(([name,value]) => {
-        const colorInput = section.querySelector(`input[name="${name}"]`)
-        colorInput.value = value
-    });
+function render(colors = COLOR) {
+    color_input.forEach( el => el.value = colors[el.name])
 }
 
-export async function getWallpaper (){
+async function getWallpaper (){
 	const colors = await API.wallpaper_get_color(WALLPAPER.current)
-	await API.color_put(colors)
+	updateColor(colors)
 	render(colors)
 }
 
-export function events () {
-    color_input.forEach( el => {
-		el.addEventListener('input', function() {
-			API.color_put({[this.name]:this.value})
-		})
-	});
+function events () {
+    color_input.forEach( el => el.addEventListener('input', function() {
+		updateColor({[this.name]:this.value})
+	}));
     wallpaper_btn.addEventListener('click', getWallpaper)
 }
+
+export default {
+	render,
+	events,
+	getWallpaper,
+} 

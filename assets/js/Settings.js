@@ -12,3 +12,7 @@ export function events(){
 
 export function render(){
 }
+export default {
+	render,
+	events,
+}

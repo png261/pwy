@@ -1,4 +1,4 @@
-import { WALLPAPER, BASE_URL } from './data.js'
+import { WALLPAPER, BASE_URL, updateWall } from './data.js'
 import API from './Api.js'
 
 const section = document.querySelector('section#wallpaper')
@@ -10,9 +10,7 @@ export async function render(imgs = WALLPAPER.list) {
 
 export async function change(el) {
 	const id = el.getAttribute('id')
-	WALLPAPER.current = id
-	await API.wallpaper_put(id)
-
+	updateWall({'current': id})
     gallery.querySelectorAll('.wallpaper__picture.active').forEach(pic => pic.classList.remove("active"));
     el.classList.add('active');
 }
@@ -28,3 +26,9 @@ export async function events() {
 	input_folder.addEventListener('change',add)
 }
 
+export default {
+	render,
+	events,
+	add, 
+	change
+}
