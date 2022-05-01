@@ -18,7 +18,7 @@ window.changeWallpaper = change
 
 export async function add() {
 	const imgs = [...input_folder.files] 
-	const { newUrl } = await API.wallpaper_upload(imgs)
+	const { newUrl } = await API.Wall.upload(imgs)
 	render(newUrl)
 }
 

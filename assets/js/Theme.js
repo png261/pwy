@@ -7,7 +7,7 @@ const select = section.querySelector('.theme__select select[name="theme_name"]')
 const dark_option = section.querySelector('.theme__option input[name="dark"]')
 
 async function change(theme){
-	const colors = await API.theme_get(theme)
+	const colors = await API.theme.color(theme)
 	updateColor(colors)
 	Color.render(colors)
 }
@@ -18,10 +18,7 @@ async function render(){
 }
 
 async function events(){
-	select.addEventListener('change', function (){
-		change(this.value)
-	}) 
-
+	select.addEventListener('change', function (){change(this.value)}) 
     dark_option.addEventListener('change',render)
 }
 

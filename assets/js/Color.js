@@ -10,7 +10,7 @@ function render(colors = COLOR) {
 }
 
 async function getWallpaper (){
-	const colors = await API.wallpaper_get_color(WALLPAPER.current)
+	const colors = await API.Wall.get_color(WALLPAPER.current)
 	updateColor(colors)
 	render(colors)
 }

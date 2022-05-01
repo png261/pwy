@@ -4,13 +4,13 @@ const reset_btn = section.querySelector('#reset')
 const change_btn = section.querySelector('#change')
 
 function events () {
-    reset_btn.addEventListener('click', API.reset)
+    reset_btn.addEventListener('click', API.Sys.reset)
     change_btn.addEventListener('click', async () => { 
-		await API.wallpaper_put()
-		await API.color_put()
+		await API.Wall.put()
+		await API.Color.put()
 
-		await API.wallpaper_load()
-		await API.color_load()
+		await API.Wall.load()
+		await API.Color.load()
 	})
 }
 

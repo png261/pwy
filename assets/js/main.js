@@ -1,5 +1,5 @@
 import { initData } from './data.js'
-
+import API from './Api.js'
 import Connect from './Connect.js'
 import Sys from './Sys.js'
 import Settings from './Settings.js'
@@ -24,9 +24,13 @@ function events(){
 	Actions.events()
 }
 
-async function run() {
-	const hasData = await initData();
-	if(!hasData) return
+async function run(){
+	const isConnected = await API.Sys.health()
+	if(!isConnected) { 
+		return 
+	}
+
+	await initData()
 	await render()
 	await events()
 }
