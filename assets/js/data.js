@@ -4,7 +4,7 @@ let COLOR = {};
 let THEME = {};
 let WALLPAPER = {};
 let SYS = {};
-let BASE_URL = 'http://localhost:8080';
+let BASE_URL = '';
 
 function updateColor(data) {
 	COLOR = {...COLOR,...data}
@@ -15,14 +15,14 @@ function updateWall(data) {
 } 
 
 function updateBaseUrl(url) {
-	BASE_URL = BASE_URL
+	BASE_URL = url
 } 
 
 async function initData (){
 	WALLPAPER = await API.Wall.get()
 	THEME = await API.Theme.list()
-	SYS = await API.Sys.get()
 	COLOR = await API.Color.get()
+	SYS = await API.Sys.get()
 }
 
 export {

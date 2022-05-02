@@ -25,11 +25,8 @@ function events(){
 }
 
 async function run(){
-	const isConnected = await API.Sys.health()
-	if(!isConnected) { 
-		return 
-	}
-
+	const connected = await API.init()
+	if(!connected) return 
 	await initData()
 	await render()
 	await events()

@@ -4,7 +4,7 @@ const input = section.querySelector('.connect__input')
 const submit = section.querySelector('.connect__submit')
 
 export function events(){
-	submit.addEventListener('click',function(){
+	submit.addEventListener('click',() => {
 		const newUrl = input.value
 		if(!newUrl) return
 		updateBaseUrl(newUrl)

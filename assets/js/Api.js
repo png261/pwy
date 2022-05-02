@@ -1,4 +1,17 @@
-import { BASE_URL, COLOR, THEME, WALLPAPER } from './data.js'
+import { BASE_URL, updateBaseUrl, COLOR, THEME, WALLPAPER } from './data.js'
+
+const init = async () => {
+	const params = new URLSearchParams(window.location.search);
+
+	updateBaseUrl(params.get('api') || localStorage.getItem('BASE_URL', BASE_URL))
+	window.history.pushState({}, '', window.location.href.split('?')[0] );
+
+	const response  = await fetch(`${BASE_URL}/health`)
+	const { connected } = await response.json()
+
+	if(connected) localStorage.setItem('BASE_URL', BASE_URL);
+	return connected
+}
 
 const Color = {
 	get: async () => {
@@ -14,7 +27,6 @@ const Color = {
 	put: async (colors = COLOR) => {
 		const response = await fetch(`${BASE_URL}/color`, {
 			method : 'PUT',
-			headers : {'Content-Type' : 'application/json'},
 			body : JSON.stringify(colors)
 		});
 		return await response.json()
@@ -71,19 +83,12 @@ const Wall = {
 	remove: async (id) => {
 		const response = await fetch(`${BASE_URL}/wallpaper/${id}`, {
 			method : 'DELETE',
-			body : data
 		});
 		return await response.json()
 	}
 }
 
 const Sys = {
-	health: async () => {
-		const response  = await fetch(`${BASE_URL}/health`)
-		const result = await response.json()
-		return result.connected 
-	}, 
-
 	get: async () => {
 		const response = await fetch(`${BASE_URL}/sys`)
 		return await response.json()
@@ -97,6 +102,7 @@ const Sys = {
 }
 
 export default {
+	init,
 	Color,
 	Theme,
 	Wall,

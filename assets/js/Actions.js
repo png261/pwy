@@ -8,7 +8,6 @@ function events () {
     change_btn.addEventListener('click', async () => { 
 		await API.Wall.put()
 		await API.Color.put()
-
 		await API.Wall.load()
 		await API.Color.load()
 	})
