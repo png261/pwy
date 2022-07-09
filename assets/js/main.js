@@ -1,8 +1,6 @@
 import { initData } from './data.js'
 import API from './Api.js'
-import Connect from './Connect.js'
 import Sys from './Sys.js'
-import Settings from './Settings.js'
 import Color from './Color.js'
 import Theme from './Theme.js'
 import Wallpaper from './Wallpaper.js'
@@ -16,8 +14,6 @@ async function render(){
 }
 
 function events(){
-	Connect.events()
-	Settings.events()
 	Wallpaper.events()
 	Theme.events()
 	Color.events()
@@ -25,8 +21,8 @@ function events(){
 }
 
 async function run(){
-	const connected = await API.init()
-	if(!connected) return 
+	// const connected = await API.init()
+	// if(!connected) return 
 	await initData()
 	await render()
 	await events()

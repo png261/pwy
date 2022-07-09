@@ -4,7 +4,7 @@ let COLOR = {};
 let THEME = {};
 let WALLPAPER = {};
 let SYS = {};
-let BASE_URL = '';
+let BASE_URL = 'http://127.0.0.1:2601';
 
 function updateColor(data) {
 	COLOR = {...COLOR,...data}
