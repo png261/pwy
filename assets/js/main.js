@@ -21,8 +21,8 @@ function events(){
 }
 
 async function run(){
-	// const connected = await API.init()
-	// if(!connected) return 
+	const connected = await API.init()
+	if(!connected) return 
 	await initData()
 	await render()
 	await events()
