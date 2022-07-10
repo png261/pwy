@@ -12,14 +12,19 @@ async function change(theme){
 	Color.render(colors)
 }
 
-async function render(){
+function render(){
 	const dark = dark_option.checked ? 'dark' : 'light'
-	select.innerHTML = THEME[dark].reduce((html,theme) => html +=`<option>${theme}</option>`,"") 
+	select.innerHTML = THEME[dark].reduce((html, theme) => {
+		return html +=`<option>${theme}</option>`
+	}, "") 
 }
 
-async function events(){
-	select.addEventListener('change', function (){change(this.value)}) 
-    dark_option.addEventListener('change',render)
+function events(){
+	select.addEventListener('change', function () {  
+		change(this.value) 
+	}) 
+
+    dark_option.addEventListener('change', render)
 }
 
 export default {

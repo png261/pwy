@@ -2,11 +2,11 @@ import { COLOR, WALLPAPER, updateColor } from './data.js'
 import API from './Api.js'
 
 const section = document.querySelector('section#color')
-const color_input = section.querySelectorAll('input[type="color"]')
-const wallpaper_btn = section.querySelector('#color__wallpaper')
+const color_inputs = section.querySelectorAll('input[type="color"]')
+const wallpaper_btn = section.querySelector('button#color__wallpaper')
 
 function render(colors = COLOR) {
-    color_input.forEach( el => el.value = colors[el.name])
+    color_inputs.forEach( input => input.value = colors[input.name])
 }
 
 async function getWallpaper (){
@@ -16,9 +16,10 @@ async function getWallpaper (){
 }
 
 function events () {
-    color_input.forEach( el => el.addEventListener('input', function() {
+    color_inputs.forEach( input => input.addEventListener('input', function() {
 		updateColor({[this.name]:this.value})
 	}));
+
     wallpaper_btn.addEventListener('click', getWallpaper)
 }
 

@@ -1,10 +1,16 @@
+body{
+	font-family: monospace;
+}
 h1{
 	width: 100%;
 	text-align: left;
+	font-size: 1.5rem;
+	line-height: 1.4;
+	overflow-wrap: break-word;
 }
 .container {
-	max-width: 768px;
-	margin: 20px auto;
+	max-width: 500px;
+	margin: 40px auto;
 }
 
 /* THEME */
@@ -17,30 +23,29 @@ h1{
 	display:flex;
 	gap: 20px;
 }
-
 /* END THEME */
 
 /* WALLPAPER */
-
 .wallpaper__inner{
-	display:grid;
-	grid-template-columns: 1fr;
+	display:flex;
+	flex-direction:column;
 	gap:10px;
 }
 
 .wallpaper__gallery{
 	display:grid;
-	grid-template-columns: repeat(3,auto);
-	width:fit-content;
-	gap:10px;
+	grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+	gap: 10px;
 }
 
 .wallpaper__picture{
-	width:75px;
+	width:100%;
 	height:75px;
 	border:2px solid black;
 	display:block;
+	background-position:center;
 	background-size:cover;
+	background-repeat: no-repeat
 }
 
 .wallpaper__picture.active{
@@ -50,17 +55,17 @@ h1{
 
 /* COLOR */
 .color__palate{
+	margin-top:10px;
 	display:grid;
-	grid-template-columns: repeat(8,4rem);
-	gap: 5px;
-	width:100%
+	grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+	gap: 10px;
 }
 
 .color__input {
     border: none;
 	padding:0;
-	width:4rem;
-	height:4rem;
+	width:100%;
+	height:75px;
 }
 /* END COLOR */
 
@@ -68,6 +73,7 @@ h1{
   position: relative;
   width: 40px;
   height: 20px;
+  margin-bottom: 10px;
 }
 
 .switch__slider {
@@ -98,11 +104,11 @@ h1{
 }
 
 .switch__checkbox:checked + .switch__slider {
-  background-color: #2196F3;
+  background-color: #000;
 }
 
 .switch__checkbox:focus + .switch__slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #000;
 }
 
 .switch__checkbox:checked + .switch__slider:before {

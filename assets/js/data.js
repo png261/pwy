@@ -1,32 +1,33 @@
 import API from './Api.js'
 
+let PWY_API = '';
+
 let COLOR = {};
 let THEME = {};
 let WALLPAPER = {};
 let SYS = {};
-let BASE_URL = '';
 
 function updateColor(data) {
-	COLOR = {...COLOR,...data}
+	COLOR = {...COLOR, ...data}
 } 
 
 function updateWall(data) {
-	WALLPAPER = {...WALLPAPER,...data}
+	WALLPAPER = {...WALLPAPER, ...data}
 } 
 
-function updateBaseUrl(url) {
-	BASE_URL = url
+function updateApiUrl(url) {
+	PWY_API = url
 } 
 
 async function initData (){
 	WALLPAPER = await API.Wall.get()
-	THEME = await API.Theme.list()
+	THEME = await API.Theme.get()
 	COLOR = await API.Color.get()
 	SYS = await API.Sys.get()
 }
 
 export {
-	BASE_URL,
+	PWY_API,
 
 	COLOR,
 	THEME,
@@ -35,7 +36,7 @@ export {
 
 	updateColor,
 	updateWall,
-	updateBaseUrl,
+	updateApiUrl,
 
 	initData,
 }

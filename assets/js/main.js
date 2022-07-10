@@ -6,7 +6,7 @@ import Theme from './Theme.js'
 import Wallpaper from './Wallpaper.js'
 import Actions from './Actions.js'
 
-async function render(){
+function render(){
 	Sys.render()
 	Wallpaper.render()
 	Color.render()
@@ -20,11 +20,14 @@ function events(){
 	Actions.events()
 }
 
-async function run(){
-	const connected = await API.init()
-	if(!connected) return 
+( async function run(){
+	const isConnected = await API.init()
+	if(!isConnected) {
+		window.location.replace(window.location.origin + "/connect.html")
+		return
+	} 
+
 	await initData()
 	await render()
 	await events()
-}
-run()
+} )()

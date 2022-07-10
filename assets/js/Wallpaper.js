@@ -1,29 +1,39 @@
-import { WALLPAPER, BASE_URL, updateWall } from './data.js'
+import { WALLPAPER, PWY_API, updateWall } from './data.js'
 import API from './Api.js'
 
 const section = document.querySelector('section#wallpaper')
 const gallery = section.querySelector('.wallpaper__gallery')
 const input_folder = section.querySelector('.wallpaper__upload input[type="file"]')
-export async function render(imgs = WALLPAPER.list) {
-    imgs.map((id) => gallery.innerHTML += `<div onclick="changeWallpaper(this)" id="${id}" class="wallpaper__picture" style="background-image:url(${BASE_URL}/static/wallpapers/${id})"></div>`)
+
+function render(imgs = WALLPAPER.list) {
+    imgs.map(id => {
+		const img_url = `${PWY_API}/static/wallpapers/${id}`
+		gallery.innerHTML += `<div id="${id}"
+								class="wallpaper__picture"
+								onclick="changeWallpaper(this)"  
+								style="background-image:url(${img_url})">
+							</div>`
+	})
 }
 
-export async function change(el) {
+function change(el) {
 	const id = el.getAttribute('id')
 	updateWall({'current': id})
-    gallery.querySelectorAll('.wallpaper__picture.active').forEach(pic => pic.classList.remove("active"));
+
+	const activedEl = gallery.querySelectorAll('.wallpaper__picture.active')
+    activedEl.forEach(el => el.classList.remove("active"));
     el.classList.add('active');
 }
 window.changeWallpaper = change
 
-export async function add() {
+async function add() {
 	const imgs = [...input_folder.files] 
 	const { newUrl } = await API.Wall.upload(imgs)
 	render(newUrl)
 }
 
-export async function events() {
-	input_folder.addEventListener('change',add)
+function events() {
+	input_folder.addEventListener('change', add)
 }
 
 export default {
