@@ -1,7 +1,6 @@
 import API from './Api.js'
 
 let PWY_API = '';
-
 let COLOR = {};
 let THEME = {};
 let WALLPAPER = {};

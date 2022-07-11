@@ -23,7 +23,7 @@ function events(){
 ( async function run(){
 	const isConnected = await API.init()
 	if(!isConnected) {
-		window.location.replace(window.location.origin + "/connect.html")
+		window.location.replace(window.location.origin + "/pwy/connect.html")
 		return
 	} 
 

@@ -2,8 +2,7 @@ import { PWY_API, updateApiUrl, COLOR, THEME, WALLPAPER } from './data.js'
 
 const init = async () => {
 	const params = new URLSearchParams(window.location.search);
-	const api = params.get('api') || localStorage.getItem('PWY_API', PWY_API)
-	if(!api) return false
+	const api = params.get('api') || localStorage.getItem('PWY_API')
 
 	updateApiUrl(api)
 	window.history.pushState({}, '', window.location.href.split('?')[0] );
