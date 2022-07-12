@@ -28,6 +28,6 @@ function events(){
 	} 
 
 	await initData()
-	await render()
-	await events()
+	render()
+	events()
 } )()
