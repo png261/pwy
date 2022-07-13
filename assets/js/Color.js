@@ -25,8 +25,18 @@ function events() {
     wallpaper_btn.addEventListener('click', getWallpaper);
 }
 
+function updateCssVar(colors = COLOR){
+    Object.entries(colors).forEach(([name, value]) => {
+        document.documentElement.style.setProperty(
+            `--${name}`,
+            value
+        );
+    })
+}
+
 export default {
     render,
     events,
     getWallpaper,
+    updateCssVar,
 };

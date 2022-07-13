@@ -38,9 +38,18 @@ function events() {
     input_folder.addEventListener('change', add);
 }
 
+function updateCssVar(id = WALLPAPER.current){
+    document.documentElement.style.setProperty(
+        '--background-image',
+        `url(${PWY_API}/static/wallpapers/${id})`
+    );
+}
+
+
 export default {
     render,
     events,
     add,
     change,
+    updateCssVar
 };

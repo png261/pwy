@@ -1,5 +1,6 @@
 import API from './Api.js';
 import Color from './Color.js';
+import Wallpaper from './Wallpaper.js';
 
 const section = document.querySelector('section#action');
 const reset_btn = section.querySelector('button#reset');
@@ -13,6 +14,9 @@ function events() {
 
         const colors = await API.Color.get();
         Color.render(colors);
+        Color.updateCssVar()
+
+        Wallpaper.updateCssVar()
     });
 
     change_btn.addEventListener('click', async () => {
@@ -21,6 +25,9 @@ function events() {
 
         await API.Color.put();
         await API.Color.load();
+
+        Color.updateCssVar()
+        Wallpaper.updateCssVar()
     });
 }
 

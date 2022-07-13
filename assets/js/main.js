@@ -7,9 +7,16 @@ import Wallpaper from './Wallpaper.js'
 import Actions from './Actions.js'
 
 function render(){
+    document.querySelector("body").classList.remove("loading")
+
 	Sys.render()
+
+    Color.updateCssVar()
+    Wallpaper.updateCssVar()
+
 	Wallpaper.render()
 	Color.render()
+
 	Theme.render()
 }
 
@@ -26,7 +33,6 @@ function events(){
 		window.location.replace(window.location.origin + "/pwy/connect.html")
 		return
 	} 
-
 	await initData()
 	render()
 	events()
