@@ -9,8 +9,10 @@ const change_btn = section.querySelector('button#change');
 function events() {
     reset_btn.addEventListener('click', async () => {
         await API.Sys.reset();
+
         await API.Color.load();
         await API.Wall.load();
+        Wallpaper.change("current")
 
         const colors = await API.Color.get();
         Color.render(colors);

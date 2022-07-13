@@ -1,16 +1,29 @@
 import { PWY_API, updateApiUrl, COLOR, WALLPAPER } from './data.js';
 
-const init = async () => {
-    const params = new URLSearchParams(window.location.search);
-    const api = params.get('api') || localStorage.getItem('PWY_API');
+async function checkhealth(api = PWY_API) {
+    if(!api) return false
 
-    updateApiUrl(api);
-    window.history.pushState({}, '', window.location.href.split('?')[0]);
-
-    const { ok } = await fetch(`${PWY_API}/health`);
-    if (ok) localStorage.setItem('PWY_API', PWY_API);
+    let ok = true;
+    await fetch(api)
+        .then((response) => {
+            ok = response.ok;
+        })
+        .catch(() => {
+            ok = false;
+        });
     return ok;
-};
+}
+
+async function getApi() {
+    const params = new URLSearchParams(window.location.search);
+    let api = params.get('api')
+    if(!api) return false 
+    api = api.replace(/\/+$/, '');
+
+    const ok = await checkhealth(api);
+    if (ok) updateApiUrl(api);
+    return ok;
+}
 
 const Color = {
     get: async () => {
@@ -100,7 +113,8 @@ const Sys = {
 };
 
 export default {
-    init,
+    getApi,
+    checkhealth,
     Color,
     Theme,
     Wall,

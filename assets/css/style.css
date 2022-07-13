@@ -6,35 +6,36 @@ html {
 
 :root {
     --background-image: url();
-    --color0:;
-    --color1:;
-    --color2:;
-    --color3:;
-    --color4:;
-    --color5:;
-    --color6:;
-    --color7:;
-    --color8:;
-    --color9:;
-    --color10:;
-    --color11:;
-    --color12:;
-    --color13:;
-    --color14:;
-    --color15:;
+    --color0: ;
+    --color1: ;
+    --color2: ;
+    --color3: ;
+    --color4: ;
+    --color5: ;
+    --color6: ;
+    --color7: ;
+    --color8: ;
+    --color9: ;
+    --color10: ;
+    --color11: ;
+    --color12: ;
+    --color13: ;
+    --color14: ;
+    --color15: ;
 }
 
 body {
     font-family: monospace;
     color: var(--color15);
-    font-size:15px;
-    position: initial; 
+    font-size: 15px;
+    position: initial;
     background-image: var(--background-image);
     background-position: center;
     transition: opacity 1s ease-in-out;
     -webkit-transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
-    -o-transition: opacity 1s ease-in-out;}
+    -o-transition: opacity 1s ease-in-out;
+}
 
 body:after {
     content: '';
@@ -48,17 +49,9 @@ body:after {
     opacity: 0.2;
 }
 
-section{
-    opacity: 1;
-    transition: 0.3 opacity;
-}
-
-body.loading section{
-    opacity: 0;
-}
-
 a {
     color: inherit;
+    text-decoration: none;
 }
 
 h1 {
@@ -68,18 +61,41 @@ h1 {
     font-size: 1.5rem;
 }
 
-button {
+.home-page h1 {
+    background: linear-gradient(
+        to top right,
+        var(--color2) 0%,
+        var(--color4) 30%,
+        var(--color7) 60%,
+        var(--color9) 80%,
+        var(--color15) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+select {
+    background-image: linear-gradient(to top, #fff, #fff 0);
+    border: 0;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button,
+a {
     background: black;
     color: white;
-    border: 2px solid #212331;
-    border-radius: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
     padding: 10px 15px;
     font-weight: bold;
     letter-spacing: 1.5px;
-    font-size:15px;
+    font-size: 15px;
 }
 
-input{
+input {
+    background-image: linear-gradient(to top, #fff, #fff 0);
     border: 2px solid #212331;
     border-radius: 10px;
     padding: 10px 15px;
@@ -93,7 +109,8 @@ input{
     border: 2px solid #212331;
     border-radius: 10px;
     background-color: var(--color0);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 /* THEME */
@@ -125,15 +142,35 @@ input{
     width: 100%;
     height: 100px;
     border: 2px solid #212331;
-    border-radius:5px;
+    border-radius: 5px;
     display: block;
+    background-color: var(--color6);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .wallpaper__picture.active {
-    border-color: var(--color6);
+    border-color: var(--color14);
+}
+.wallpaper__upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: fit-content;
+}
+
+.wallpaper__upload button {
+}
+
+.wallpaper__upload input[type='file'] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    left: 0;
+    top: 0;
+    opacity: 0;
 }
 /* END WALLPAPER */
 

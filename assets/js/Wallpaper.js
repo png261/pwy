@@ -7,24 +7,31 @@ const input_folder = section.querySelector(
     '.wallpaper__upload input[type="file"]'
 );
 
+function activeWall(id = WALLPAPER.current ){
+    const walls = gallery.querySelectorAll('.wallpaper__picture.active');
+    walls.forEach((el) => el.classList.remove('active'));
+
+    const activeEl = gallery.querySelector(`.wallpaper__picture[id='${id}']`)
+    if(!activeEl) return 
+    activeEl.classList.add('active');
+}
+
+
 function render(imgs = WALLPAPER.list) {
     imgs.map((id) => {
         const img_url = `${PWY_API}/static/wallpapers/${id}`;
         gallery.innerHTML += `<div id="${id}"
 								class="wallpaper__picture"
-								onclick="changeWallpaper(this)"  
+								onclick="changeWallpaper(this.id)"  
 								style="background-image:url(${img_url})">
 							</div>`;
     });
+    activeWall()
 }
 
-function change(el) {
-    const id = el.getAttribute('id');
+function change(id) {
     updateWall({ current: id });
-
-    const activedEl = gallery.querySelectorAll('.wallpaper__picture.active');
-    activedEl.forEach((el) => el.classList.remove('active'));
-    el.classList.add('active');
+    activeWall()
 }
 window.changeWallpaper = change;
 

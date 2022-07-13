@@ -18,7 +18,7 @@ function updateApiUrl(url) {
     PWY_API = url;
 }
 
-async function initData() {
+async function init() {
     WALLPAPER = await API.Wall.get();
     THEME = await API.Theme.get();
     COLOR = await API.Color.get();
@@ -34,5 +34,5 @@ export {
     updateColor,
     updateWall,
     updateApiUrl,
-    initData,
+    init,
 };
