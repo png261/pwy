@@ -1,11 +1,10 @@
 import { SYS } from './data.js';
+import { $ } from './helper.js';
 
-const section = document.querySelector('section#sys');
-const title = section.querySelector('h1');
+const title = $('.sys__title');
 
 function render() {
-    const { os, name } = SYS;
-    title.innerHTML = `Connected ${name}-${os}`;
+    title.innerHTML = `Connected ${SYS.os}-${SYS.name}`;
 }
 
 export default {

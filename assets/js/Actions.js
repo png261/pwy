@@ -1,36 +1,33 @@
 import API from './Api.js';
 import Color from './Color.js';
 import Wallpaper from './Wallpaper.js';
+import { $ } from './helper.js';
 
-const section = document.querySelector('section#action');
-const reset_btn = section.querySelector('button#reset');
-const change_btn = section.querySelector('button#change');
+const reset_btn = $('.action__reset');
+const change_btn = $('.action__change');
 
-function events() {
-    reset_btn.addEventListener('click', async () => {
+async function reset(){
         await API.Sys.reset();
-
         await API.Color.load();
         await API.Wall.load();
         Wallpaper.change("current")
-
-        const colors = await API.Color.get();
-        Color.render(colors);
+        Color.render(await API.Color.get());
         Color.updateCssVar()
-
         Wallpaper.updateCssVar()
-    });
+}
 
-    change_btn.addEventListener('click', async () => {
+async function change(){
         await API.Wall.put();
-        await API.Wall.load();
-
         await API.Color.put();
+        await API.Wall.load();
         await API.Color.load();
-
         Color.updateCssVar()
         Wallpaper.updateCssVar()
-    });
+}
+
+function events() {
+    reset_btn.addEventListener('click', reset)
+    change_btn.addEventListener('click', change)
 }
 
 export default {

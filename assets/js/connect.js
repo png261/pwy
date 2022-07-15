@@ -1,17 +1,15 @@
-const section = document.querySelector('section#connect');
-const input = section.querySelector('input');
-const button = section.querySelector('button');
-import API from './Api.js';
+import { isConnected, $, redirect } from './helper.js';
+
+const input = $('#connect input');
+const button = $('#connect button');
+
+async function connect() {
+    const api = input.value;
+    if (!(await isConnected(api))) return (input.value = '');
+    redirect(`?api=${api}`)
+}
 
 function events() {
-    button.addEventListener('click', async () => {
-        const api = input.value;
-        if (!api) return;
-
-        const ok = await API.checkhealth(api);
-        if (!ok) return (input.value = '');
-
-        window.location.replace(window.location.origin + '/pwy/?api=' + api);
-    });
+    button.addEventListener('click', connect);
 }
 events();

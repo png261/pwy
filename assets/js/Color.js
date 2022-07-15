@@ -1,37 +1,30 @@
 import { COLOR, WALLPAPER, updateColor } from './data.js';
 import API from './Api.js';
+import { $, $$ } from './helper.js';
 
-const section = document.querySelector('section#color');
-const color_inputs = section.querySelectorAll('input[type="color"]');
-const wallpaper_btn = section.querySelector('button#color__wallpaper');
-
-function render(colors = COLOR) {
-    color_inputs.forEach((input) => (input.value = colors[input.name]));
-}
+const inputs = $$('.color__input');
+const wallpaper_btn = $('#color__wallpaper');
 
 async function getWallpaper() {
-    const colors = await API.Wall.get_color(WALLPAPER.current);
-    updateColor(colors);
-    render(colors);
+    updateColor(await API.Wall.get_color(WALLPAPER.current));
+    render();
+}
+
+const onChange = () => updateColor({ [this.name]: this.value });
+
+function updateCssVar(colors = COLOR) {
+    Object.entries(colors).forEach(([name, value]) => {
+        document.documentElement.style.setProperty(`--${name}`, value);
+    });
+}
+
+function render(colors = COLOR) {
+    inputs.forEach((input) => (input.value = colors[input.name]));
 }
 
 function events() {
-    color_inputs.forEach((input) =>
-        input.addEventListener('input', function () {
-            updateColor({ [this.name]: this.value });
-        })
-    );
-
+    inputs.forEach((input) => input.addEventListener('input', onChange));
     wallpaper_btn.addEventListener('click', getWallpaper);
-}
-
-function updateCssVar(colors = COLOR){
-    Object.entries(colors).forEach(([name, value]) => {
-        document.documentElement.style.setProperty(
-            `--${name}`,
-            value
-        );
-    })
 }
 
 export default {

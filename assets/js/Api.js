@@ -1,120 +1,48 @@
-import { PWY_API, updateApiUrl, COLOR, WALLPAPER } from './data.js';
+import { updateApiUrl, COLOR, WALLPAPER } from './data.js';
+import {
+    cleanUrl,
+    getParam,
+    isConnected,
+    get,
+    put,
+    remove,
+    upload,
+} from './helper.js';
 
-async function checkhealth(api = PWY_API) {
-    if(!api) return false
-
-    let ok = true;
-    await fetch(api)
-        .then((response) => {
-            ok = response.ok;
-        })
-        .catch(() => {
-            ok = false;
-        });
-    return ok;
-}
-
-async function getApi() {
-    const params = new URLSearchParams(window.location.search);
-    let api = params.get('api')
-    if(!api) return false 
-    api = api.replace(/\/+$/, '');
-
-    const ok = await checkhealth(api);
-    if (ok) updateApiUrl(api);
-    return ok;
+async function check() {
+    const api = cleanUrl(getParam('api'));
+    if (!(await isConnected(api))) return;
+    updateApiUrl(api);
+    return true;
 }
 
 const Color = {
-    get: async () => {
-        const response = await fetch(`${PWY_API}/color`);
-        return await response.json();
-    },
-
-    load: async () => {
-        const response = await fetch(`${PWY_API}/color/load`);
-        return await response.json();
-    },
-    put: async (colors = COLOR) => {
-        const response = await fetch(`${PWY_API}/color`, {
-            method: 'PUT',
-            body: JSON.stringify(colors),
-        });
-        return await response.json();
-    },
+    get: () => get('color'),
+    load: () => get('color/load'),
+    put: (colors = COLOR) => put('color', colors),
 };
 
 const Theme = {
-    get: async () => {
-        const response = await fetch(`${PWY_API}/theme`);
-        return await response.json();
-    },
-
-    color: async (theme, dark = true) => {
-        const response = await fetch(`${PWY_API}/theme/${theme}/?dark=${dark}`);
-        return await response.json();
-    },
+    get: () => get('theme'),
+    color: (theme, dark = true) => get(`theme/${theme}/?dark=${dark}`),
 };
 
 const Wall = {
-    get: async () => {
-        const response = await fetch(`${PWY_API}/wallpaper`);
-        return await response.json();
-    },
-
-    load: async () => {
-        const response = await fetch(`${PWY_API}/wallpaper/load`);
-        return await response.json();
-    },
-
-    put: async (id = WALLPAPER.current) => {
-        const response = await fetch(`${PWY_API}/wallpaper/${id}`, {
-            method: 'PUT',
-        });
-        return await response.json();
-    },
-
-    get_color: async () => {
-        const response = await fetch(
-            `${PWY_API}/wallpaper/${WALLPAPER.current}/color`
-        );
-        return await response.json();
-    },
-
-    upload: async (files) => {
-        let data = new FormData();
-        files.map((file) => data.append('files', file));
-
-        const response = await fetch(`${PWY_API}/wallpaper`, {
-            method: 'POST',
-            body: data,
-        });
-        return await response.json();
-    },
-
-    remove: async (id) => {
-        const response = await fetch(`${PWY_API}/wallpaper/${id}`, {
-            method: 'DELETE',
-        });
-        return await response.json();
-    },
+    get: () => get('wallpaper'),
+    load: () => get('wallpaper/load'),
+    put: (id = WALLPAPER.current) => put(`wallpaper/${id}`),
+    get_color: () => get(`wallpaper/${WALLPAPER.current}/color`),
+    upload: (files) => upload('wallpaper', files),
+    remove: (id) => remove(`wallpaper/${id}`),
 };
 
 const Sys = {
-    get: async () => {
-        const response = await fetch(`${PWY_API}/sys`);
-        return await response.json();
-    },
-
-    reset: async () => {
-        const response = await fetch(`${PWY_API}/reset`);
-        return await response.json();
-    },
+    get: () => get('sys'),
+    reset: () => get('reset'),
 };
 
 export default {
-    getApi,
-    checkhealth,
+    check,
     Color,
     Theme,
     Wall,

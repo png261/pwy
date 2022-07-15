@@ -5,11 +5,11 @@ import Color from './Color.js';
 import Theme from './Theme.js';
 import Wallpaper from './Wallpaper.js';
 import Actions from './Actions.js';
+import { redirect } from './helper.js';
 
 function render() {
     Color.updateCssVar();
     Wallpaper.updateCssVar();
-
     Wallpaper.render();
     Sys.render();
     Color.render();
@@ -24,14 +24,9 @@ function events() {
 }
 
 (async function run() {
-    const ok = await API.getApi();
-
-    if (!ok) {
-        return window.location.replace(
-            window.location.origin + '/pwy/connect.html'
-        );
+    if (!(await API.check())) {
+        return redirect('connect.html');
     }
-
     await DATA.init();
     render();
     events();
