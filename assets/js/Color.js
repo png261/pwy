@@ -1,30 +1,31 @@
-import { COLOR, WALLPAPER, updateColor } from './data.js';
-import API from './Api.js';
-import { $, $$ } from './helper.js';
+import API from './api.js'
+import { $, $$ } from './helper.js'
+import { COLOR, WALLPAPER } from './data.js'
 
-const inputs = $$('.color__input');
-const wallpaper_btn = $('#color__wallpaper');
+const $inputs = $$('.color__input')
+const $getWallpaper = $('#color__wallpaper')
 
 async function getWallpaper() {
-    updateColor(await API.Wall.get_color(WALLPAPER.current));
-    render();
+    COLOR.set(await API.Wall.get_color(WALLPAPER.getCurrent()))
+    render()
 }
 
-const onChange = () => updateColor({ [this.name]: this.value });
-
-function updateCssVar(colors = COLOR) {
+function updateCssVar(colors = COLOR.get()) {
     Object.entries(colors).forEach(([name, value]) => {
-        document.documentElement.style.setProperty(`--${name}`, value);
-    });
+        document.documentElement.style.setProperty(`--${name}`, value)
+    })
 }
 
-function render(colors = COLOR) {
-    inputs.forEach((input) => (input.value = colors[input.name]));
+function render(colors = COLOR.get()) {
+    $inputs.forEach((input) => (input.value = colors[input.name]))
 }
 
 function events() {
-    inputs.forEach((input) => input.addEventListener('input', onChange));
-    wallpaper_btn.addEventListener('click', getWallpaper);
+    function onChange() {
+        COLOR.put(this)
+    }
+    $inputs.forEach((input) => input.addEventListener('input', onChange))
+    $getWallpaper.addEventListener('click', getWallpaper)
 }
 
 export default {
@@ -32,4 +33,4 @@ export default {
     events,
     getWallpaper,
     updateCssVar,
-};
+}

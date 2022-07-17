@@ -1,38 +1,72 @@
-import API from './Api.js';
+import API from './api.js'
 
-let PWY_API = '';
-let COLOR = {};
-let THEME = {};
-let WALLPAPER = {};
-let SYS = {};
+let COLOR
+let THEME
+let WALLPAPER
+let SYS
 
-function updateColor(data) {
-    COLOR = { ...COLOR, ...data };
+class Wallpaper {
+    constructor({ current, list }) {
+        this.current = current
+        this.list = list
+    }
+    get() {
+        return this.list
+    }
+    getCurrent() {
+        return this.current
+    }
+    setCurrent(id) {
+        this.current = id
+    }
 }
 
-function updateWall(data) {
-    WALLPAPER = { ...WALLPAPER, ...data };
+class Theme {
+    constructor({ dark, light }) {
+        this.dark = dark
+        this.light = light
+    }
+    getDark() {
+        return this.dark
+    }
+    getLight() {
+        return this.light
+    }
 }
 
-function updateApiUrl(url) {
-    PWY_API = url;
+class Color {
+    constructor(colors) {
+        this.colors = colors
+    }
+    get() {
+        return this.colors
+    }
+    put({ name, value }) {
+        this.colors[name] = value
+    }
+    set(colors) {
+        this.colors = colors
+    }
+}
+
+class Sys {
+    constructor({ os, name }) {
+        this.os = os
+        this.name = name
+    }
+    getOs() {
+        return this.os
+    }
+    getName() {
+        return this.name
+    }
 }
 
 async function init() {
-    WALLPAPER = await API.Wall.get();
-    THEME = await API.Theme.get();
-    COLOR = await API.Color.get();
-    SYS = await API.Sys.get();
+    WALLPAPER = new Wallpaper(await API.Wall.get())
+    THEME = new Theme(await API.Theme.get())
+    COLOR = new Color(await API.Color.get())
+    SYS = new Sys(await API.Sys.get())
 }
 
-export {
-    PWY_API,
-    COLOR,
-    THEME,
-    WALLPAPER,
-    SYS,
-    updateColor,
-    updateWall,
-    updateApiUrl,
-    init,
-};
+export { COLOR, THEME, WALLPAPER, SYS, init }
