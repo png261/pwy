@@ -10,6 +10,20 @@ class Wallpaper {
         this.current = current
         this.list = list
     }
+    async get_color() {
+        return await API.get(`wallpaper/${this.current}/color`)
+    }
+    async upload(imgs) {
+        return await API.upload('wallpaper', imgs)
+    }
+    async update() {
+        await API.put(`wallpaper/${this.current}`)
+    }
+    async load() {
+        const { current, list } = await API.get('wallpaper/load')
+        this.current = current
+        this.list = list
+    }
 }
 
 class Theme {
@@ -18,13 +32,16 @@ class Theme {
         this.dark = dark
         this.light = light
     }
+    async get(name) {
+        return API.get(`theme/${this.isDark ? 'dark' : 'light'}/${name}`)
+    }
 }
 
 class Color {
     constructor(colors) {
         this.colors = colors
     }
-    get(){
+    get() {
         return this.colors
     }
     put({ name, value }) {
@@ -33,6 +50,12 @@ class Color {
     set(colors) {
         this.colors = colors
     }
+    async update() {
+        await API.put('color', this.colors)
+    }
+    async load() {
+        this.colors = await API.get('color/load')
+    }
 }
 
 class Sys {
@@ -40,13 +63,16 @@ class Sys {
         this.os = os
         this.name = name
     }
+    async reset() {
+        await API.get('reset')
+    }
 }
 
 async function init() {
-    WALLPAPER = new Wallpaper(await API.Wall.get())
-    THEME = new Theme(await API.Theme.get())
-    COLOR = new Color(await API.Color.get())
-    SYS = new Sys(await API.Sys.get())
+    WALLPAPER = new Wallpaper(await API.get('wallpaper'))
+    THEME = new Theme(await API.get('theme'))
+    COLOR = new Color(await API.get('color'))
+    SYS = new Sys(await API.get('sys'))
 }
 
 export { COLOR, THEME, WALLPAPER, SYS, init }

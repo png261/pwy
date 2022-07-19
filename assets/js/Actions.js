@@ -1,4 +1,4 @@
-import API from './api.js'
+import { SYS, WALLPAPER, COLOR } from './data.js'
 import { $ } from './helper.js'
 import Color from './Color.js'
 import Wallpaper from './Wallpaper.js'
@@ -7,20 +7,25 @@ const $reset = $('.action__reset')
 const $change = $('.action__change')
 
 async function reset() {
-    await API.Sys.reset()
-    await API.Color.load()
-    await API.Wall.load()
-    Wallpaper.current = "current"
-    Color.render(await API.Color.get())
+    await SYS.reset()
+
+    await WALLPAPER.load()
+    await COLOR.load()
+
     Color.updateCssVar()
     Wallpaper.updateCssVar()
+
+    Wallpaper.active()
+    Color.render()
 }
 
 async function change() {
-    await API.Wall.put()
-    await API.Color.put()
-    await API.Wall.load()
-    await API.Color.load()
+    await WALLPAPER.update()
+    await COLOR.update()
+
+    await WALLPAPER.load()
+    await COLOR.load()
+
     Color.updateCssVar()
     Wallpaper.updateCssVar()
 }

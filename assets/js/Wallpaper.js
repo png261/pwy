@@ -5,10 +5,8 @@ import { WALLPAPER } from './data.js'
 const $gallery = $('.wallpaper__gallery')
 const $input = $('.wallpaper__upload input[type="file"]')
 
-function activeWall(id = WALLPAPER.current) {
-    $$('.wallpaper__img.active').forEach((el) =>
-        el.classList.remove('active')
-    )
+function active(id = WALLPAPER.current) {
+    $$('.wallpaper__img.active').forEach((el) => el.classList.remove('active'))
 
     const activeEl = $(`.wallpaper__img[id='${id}']`)
     activeEl && activeEl.classList.add('active')
@@ -25,18 +23,18 @@ function render(imgs = WALLPAPER.list) {
     }
 
     imgs.map((id) => ($gallery.innerHTML += html(id)))
-    activeWall()
+    active()
 }
 
 function change(id) {
     WALLPAPER.current = id
-    activeWall()
+    active()
 }
 window.changeWallpaper = change
 
 function events() {
     async function add() {
-        render(await API.Wall.upload([...$input.files]))
+        render(await WALLPAPER.upload([...$input.files]))
     }
     $input.addEventListener('change', add)
 }
@@ -53,4 +51,5 @@ export default {
     events,
     change,
     updateCssVar,
+    active
 }

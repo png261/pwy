@@ -1,4 +1,3 @@
-import API from './api.js'
 import { $ } from './helper.js'
 import { THEME, COLOR } from './data.js'
 import Color from './Color.js'
@@ -18,7 +17,7 @@ function render() {
 
 function events() {
     async function change() {
-        COLOR.set(await API.Theme.color($select.value))
+        COLOR.set(await THEME.get($select.value))
         Color.render()
     }
 

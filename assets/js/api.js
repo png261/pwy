@@ -1,4 +1,3 @@
-import { COLOR, WALLPAPER, THEME } from './data.js'
 import { cleanUrl, getParam, isConnected } from './helper.js'
 
 let BASE_URL = ''
@@ -30,37 +29,12 @@ async function upload(url, files) {
     }).then((response) => response.json())
 }
 
-const Color = {
-    get: () => get('color'),
-    load: () => get('color/load'),
-    put: (colors = COLOR.get()) => put('color', colors),
-}
-
-const Theme = {
-    get: () => get('theme'),
-    color: (theme, dark = THEME.isDark) =>
-        get(`theme/${dark ? 'dark' : 'light'}/${theme}`),
-}
-
-const Wall = {
-    get: () => get('wallpaper'),
-    load: () => get('wallpaper/load'),
-    put: (id = WALLPAPER.current) => put(`wallpaper/${id}`),
-    get_color: () => get(`wallpaper/${WALLPAPER.current}/color`),
-    upload: (files) => upload('wallpaper', files),
-}
-
-const Sys = {
-    get: () => get('sys'),
-    reset: () => get('reset'),
-}
 
 export { BASE_URL }
 
 export default {
     init,
-    Color,
-    Theme,
-    Wall,
-    Sys,
+    get,
+    put,
+    upload,
 }

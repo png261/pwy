@@ -1,12 +1,11 @@
-import API from './api.js'
 import { $, $$ } from './helper.js'
-import { COLOR} from './data.js'
+import { COLOR, WALLPAPER } from './data.js'
 
 const $inputs = $$('.color__input')
 const $getWallpaper = $('#color__wallpaper')
 
 async function getWallpaper() {
-    COLOR.set(await API.Wall.get_color())
+    COLOR.set(await WALLPAPER.get_color())
     render()
 }
 
@@ -21,10 +20,11 @@ function render(colors = COLOR.get()) {
 }
 
 function events() {
-    function onChange() {
-        COLOR.put(this)
-    }
-    $inputs.forEach((input) => input.addEventListener('input', onChange))
+    $inputs.forEach((input) =>
+        input.addEventListener('input', function () {
+            COLOR.put(this)
+        })
+    )
     $getWallpaper.addEventListener('click', getWallpaper)
 }
 
