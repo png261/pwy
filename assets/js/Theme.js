@@ -13,18 +13,20 @@ function render() {
             ''
         )
     }
-
-    $select.innerHTML = html($dark.checked ? THEME.getDark() : THEME.getLight())
+    $select.innerHTML = html($dark.checked ? THEME.dark : THEME.light)
 }
 
 function events() {
     async function change() {
-        COLOR.set(await API.Theme.color(this.value))
+        COLOR.set(await API.Theme.color($select.value))
         Color.render()
     }
 
     $select.addEventListener('change', change)
-    $dark.addEventListener('change', render)
+    $dark.addEventListener('change', () => {
+        THEME.isDark = $dark.checked
+        render()
+    })
 }
 
 export default {

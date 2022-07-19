@@ -10,27 +10,13 @@ class Wallpaper {
         this.current = current
         this.list = list
     }
-    get() {
-        return this.list
-    }
-    getCurrent() {
-        return this.current
-    }
-    setCurrent(id) {
-        this.current = id
-    }
 }
 
 class Theme {
     constructor({ dark, light }) {
+        this.isDark = true
         this.dark = dark
         this.light = light
-    }
-    getDark() {
-        return this.dark
-    }
-    getLight() {
-        return this.light
     }
 }
 
@@ -38,7 +24,7 @@ class Color {
     constructor(colors) {
         this.colors = colors
     }
-    get() {
+    get(){
         return this.colors
     }
     put({ name, value }) {
@@ -53,12 +39,6 @@ class Sys {
     constructor({ os, name }) {
         this.os = os
         this.name = name
-    }
-    getOs() {
-        return this.os
-    }
-    getName() {
-        return this.name
     }
 }
 

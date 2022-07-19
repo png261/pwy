@@ -1,12 +1,12 @@
 import API from './api.js'
 import { $, $$ } from './helper.js'
-import { COLOR, WALLPAPER } from './data.js'
+import { COLOR} from './data.js'
 
 const $inputs = $$('.color__input')
 const $getWallpaper = $('#color__wallpaper')
 
 async function getWallpaper() {
-    COLOR.set(await API.Wall.get_color(WALLPAPER.getCurrent()))
+    COLOR.set(await API.Wall.get_color())
     render()
 }
 

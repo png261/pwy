@@ -1,4 +1,4 @@
-import { COLOR, WALLPAPER } from './data.js'
+import { COLOR, WALLPAPER, THEME } from './data.js'
 import { cleanUrl, getParam, isConnected } from './helper.js'
 
 let BASE_URL = ''
@@ -11,12 +11,6 @@ async function init() {
 
 async function get(url) {
     return await fetch(`${BASE_URL}/${url}`).then((response) => response.json())
-}
-
-async function remove(url) {
-    return await fetch(`${BASE_URL}/${url}`, { method: 'DELETE' }).then(
-        (response) => response.json()
-    )
 }
 
 async function put(url, data = {}) {
@@ -44,16 +38,16 @@ const Color = {
 
 const Theme = {
     get: () => get('theme'),
-    color: (theme, dark = true) => get(`theme/${theme}/?dark=${dark}`),
+    color: (theme, dark = THEME.isDark) =>
+        get(`theme/${dark ? 'dark' : 'light'}/${theme}`),
 }
 
 const Wall = {
     get: () => get('wallpaper'),
     load: () => get('wallpaper/load'),
-    put: (id = WALLPAPER.getCurrent()) => put(`wallpaper/${id}`),
-    get_color: () => get(`wallpaper/${WALLPAPER.getCurrent()}/color`),
+    put: (id = WALLPAPER.current) => put(`wallpaper/${id}`),
+    get_color: () => get(`wallpaper/${WALLPAPER.current}/color`),
     upload: (files) => upload('wallpaper', files),
-    remove: (id) => remove(`wallpaper/${id}`),
 }
 
 const Sys = {

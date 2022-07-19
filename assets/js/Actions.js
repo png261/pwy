@@ -10,7 +10,7 @@ async function reset() {
     await API.Sys.reset()
     await API.Color.load()
     await API.Wall.load()
-    Wallpaper.change('current')
+    Wallpaper.current = "current"
     Color.render(await API.Color.get())
     Color.updateCssVar()
     Wallpaper.updateCssVar()

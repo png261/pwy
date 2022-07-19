@@ -5,7 +5,7 @@ import { WALLPAPER } from './data.js'
 const $gallery = $('.wallpaper__gallery')
 const $input = $('.wallpaper__upload input[type="file"]')
 
-function activeWall(id = WALLPAPER.getCurrent()) {
+function activeWall(id = WALLPAPER.current) {
     $$('.wallpaper__img.active').forEach((el) =>
         el.classList.remove('active')
     )
@@ -14,7 +14,7 @@ function activeWall(id = WALLPAPER.getCurrent()) {
     activeEl && activeEl.classList.add('active')
 }
 
-function render(imgs = WALLPAPER.get()) {
+function render(imgs = WALLPAPER.list) {
     function html(id) {
         const img_url = `${BASE_URL}/static/wallpapers/${id}`
         return `<div id="${id}"
@@ -29,7 +29,7 @@ function render(imgs = WALLPAPER.get()) {
 }
 
 function change(id) {
-    WALLPAPER.setCurrent(id)
+    WALLPAPER.current = id
     activeWall()
 }
 window.changeWallpaper = change
@@ -41,7 +41,7 @@ function events() {
     $input.addEventListener('change', add)
 }
 
-function updateCssVar(id = WALLPAPER.getCurrent()) {
+function updateCssVar(id = WALLPAPER.current) {
     document.documentElement.style.setProperty(
         '--background-image',
         `url(${BASE_URL}/static/wallpapers/${id})`
