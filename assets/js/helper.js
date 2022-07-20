@@ -19,3 +19,7 @@ export async function isConnected(api) {
         .then(({ ok }) => ok)
         .catch(() => false)
 }
+
+export function setCssVar(name, value) {
+    document.documentElement.style.setProperty(`--${name}`, value)
+}

@@ -1,5 +1,5 @@
-import API, { BASE_URL } from './api.js'
-import { $, $$ } from './helper.js'
+import { BASE_URL } from './api.js'
+import { $, $$, setCssVar } from './helper.js'
 import { WALLPAPER } from './data.js'
 
 const $gallery = $('.wallpaper__gallery')
@@ -12,13 +12,21 @@ function active(id = WALLPAPER.current) {
     activeEl && activeEl.classList.add('active')
 }
 
+function img(id) {
+    return `url(${BASE_URL}/static/wallpapers/${id})`
+}
+
+window.changeWallpaper = (id) => {
+    WALLPAPER.current = id
+    active()
+}
+
 function render(imgs = WALLPAPER.list) {
     function html(id) {
-        const img_url = `${BASE_URL}/static/wallpapers/${id}`
         return `<div id="${id}"
                     class="wallpaper__img"
                     onclick="changeWallpaper(this.id)"  
-                    style="background-image:url(${img_url})">
+                    style="background-image:${img(id)}">
                 </div>`
     }
 
@@ -26,30 +34,20 @@ function render(imgs = WALLPAPER.list) {
     active()
 }
 
-function change(id) {
-    WALLPAPER.current = id
-    active()
-}
-window.changeWallpaper = change
-
 function events() {
-    async function add() {
+    async function upload() {
         render(await WALLPAPER.upload([...$input.files]))
     }
-    $input.addEventListener('change', add)
+    $input.addEventListener('change', upload)
 }
 
-function updateCssVar(id = WALLPAPER.current) {
-    document.documentElement.style.setProperty(
-        '--background-image',
-        `url(${BASE_URL}/static/wallpapers/${id})`
-    )
+function updateCssVar() {
+    setCssVar('background-image', img(WALLPAPER.current))
 }
 
 export default {
     render,
     events,
-    change,
     updateCssVar,
-    active
+    active,
 }

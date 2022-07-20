@@ -29,7 +29,6 @@ async function upload(url, files) {
     }).then((response) => response.json())
 }
 
-
 export { BASE_URL }
 
 export default {

@@ -16,12 +16,12 @@ function render() {
 }
 
 function events() {
-    async function change() {
+    async function updateColors() {
         COLOR.set(await THEME.get($select.value))
         Color.render()
     }
 
-    $select.addEventListener('change', change)
+    $select.addEventListener('change', updateColors)
     $dark.addEventListener('change', () => {
         THEME.isDark = $dark.checked
         render()

@@ -10,14 +10,14 @@ class Wallpaper {
         this.current = current
         this.list = list
     }
-    async get_color() {
+    async colors() {
         return await API.get(`wallpaper/${this.current}/color`)
-    }
-    async upload(imgs) {
-        return await API.upload('wallpaper', imgs)
     }
     async update() {
         await API.put(`wallpaper/${this.current}`)
+    }
+    async upload(imgs) {
+        return await API.upload('wallpaper', imgs)
     }
     async load() {
         const { current, list } = await API.get('wallpaper/load')

@@ -1,18 +1,16 @@
-import { $, $$ } from './helper.js'
+import { $, $$, setCssVar } from './helper.js'
 import { COLOR, WALLPAPER } from './data.js'
 
 const $inputs = $$('.color__input')
 const $getWallpaper = $('#color__wallpaper')
 
 async function getWallpaper() {
-    COLOR.set(await WALLPAPER.get_color())
+    COLOR.set(await WALLPAPER.colors())
     render()
 }
 
 function updateCssVar(colors = COLOR.get()) {
-    Object.entries(colors).forEach(([name, value]) => {
-        document.documentElement.style.setProperty(`--${name}`, value)
-    })
+    Object.entries(colors).forEach(([name, value]) => setCssVar(name, value))
 }
 
 function render(colors = COLOR.get()) {
